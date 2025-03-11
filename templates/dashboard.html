@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Mental Health Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="dashboard-container">
+        <nav class="navbar">
+            <div class="nav-brand">Mental Health Assistant</div>
+            <div class="nav-links">
+                <a href="{{ url_for('dashboard') }}" class="active">Chat</a>
+                <a href="{{ url_for('history') }}">History</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            </div>
+        </nav>
+        
+        <div class="main-content">
+            <div class="welcome-message">
+                <h1>Welcome, {{ username }}!</h1>
+                <p>Ask me anything about mental health</p>
+            </div>
+            
+            <div class="chat-container">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message bot">
+                        <div class="message-content">
+                            Hello! I'm your Mental Health Assistant. How can I help you today?
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chat-input-container">
+                    <div class="search-container">
+                        <input type="text" id="queryInput" class="chat-input" placeholder="Type your question here...">
+                        <div id="suggestions" class="suggestions-dropdown"></div>
+                    </div>
+                    <button id="sendBtn" class="btn primary send-btn">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>
+

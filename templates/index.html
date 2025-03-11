@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1>Mental Health Assistant</h1>
+            <p>Your personal guide to understanding mental health</p>
+            <div class="cta-buttons">
+                <a href="{{ url_for('login') }}" class="btn primary">Login</a>
+                <a href="{{ url_for('signup') }}" class="btn secondary">Sign Up</a>
+            </div>
+        </div>
+        
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🧠</div>
+                <h3>Mental Health Information</h3>
+                <p>Get accurate information about mental health topics and conditions</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">💬</div>
+                <h3>Intelligent Assistant</h3>
+                <p>Ask questions and get personalized responses using advanced NLP</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <h3>Search History</h3>
+                <p>Keep track of your queries and revisit important information</p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>&copy; 2025 Mental Health Assistant. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>
+

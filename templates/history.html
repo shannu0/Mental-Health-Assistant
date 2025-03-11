@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search History - Mental Health Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="dashboard-container">
+        <nav class="navbar">
+            <div class="nav-brand">Mental Health Assistant</div>
+            <div class="nav-links">
+                <a href="{{ url_for('dashboard') }}">Chat</a>
+                <a href="{{ url_for('history') }}" class="active">History</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            </div>
+        </nav>
+        
+        <div class="main-content">
+            <div class="history-header">
+                <h1>Your Search History</h1>
+                {% if search_history %}
+                <form action="{{ url_for('clear_history') }}" method="post">
+                    <button type="submit" class="btn secondary">Clear History</button>
+                </form>
+                {% endif %}
+            </div>
+            
+            <div class="history-container">
+                {% if search_history %}
+                    {% for item in search_history|reverse %}
+                        <div class="history-item">
+                            <div class="history-query">
+                                <span class="query-label">Query:</span> {{ item.query }}
+                            </div>
+                            <div class="history-response">
+                                <span class="response-label">Response:</span> {{ item.response }}
+                            </div>
+                            <div class="history-timestamp">{{ item.timestamp }}</div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="no-history">
+                        <p>You haven't made any searches yet.</p>
+                        <a href="{{ url_for('dashboard') }}" class="btn primary">Start Chatting</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
