@@ -167,9 +167,24 @@ def get_intent_response(query):
     return default_response, default_score
 
 # Function to get search suggestions
-def get_suggestions(query, max_results=5):
+def get_suggestions(query, max_results=3):  # Changed max_results to 3
     if not query:
         return []
+    
+    query = query.lower()
+    
+    # Add common greeting suggestions if query might be a greeting
+    common_greetings = [
+        "What is mental health?",
+        "How to find mental health professional?",
+        "What treatment options are available?"
+    ]
+    
+    greeting_words = ["hello", "hi", "hey", "greetings", "good"]
+    
+    # If query looks like a greeting, suggest common mental health questions
+    if any(query.startswith(word) for word in greeting_words) or len(query) <= 3:
+        return common_greetings[:max_results]
     
     # Combine questions from both datasets
     all_questions = []
@@ -182,11 +197,31 @@ def get_suggestions(query, max_results=5):
     
     # Calculate similarity for each question
     suggestions = []
+    
+    # First, add exact matches at the beginning
     for question in all_questions:
-        if query.lower() in question.lower():
+        if query == question.lower():
             suggestions.append(question)
             if len(suggestions) >= max_results:
-                break
+                return suggestions
+    
+    # Then add questions that start with the query
+    for question in all_questions:
+        if question.lower().startswith(query) and question not in suggestions:
+            suggestions.append(question)
+            if len(suggestions) >= max_results:
+                return suggestions
+    
+    # Finally add questions that contain the query
+    for question in all_questions:
+        if query in question.lower() and question not in suggestions:
+            suggestions.append(question)
+            if len(suggestions) >= max_results:
+                return suggestions
+    
+    # If no matches found, return common questions as fallback
+    if not suggestions and len(query) >= 3:
+        return common_greetings[:max_results]
     
     return suggestions
 
@@ -234,6 +269,9 @@ def login():
     return render_template('login.html')
 
 @app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        username = request.form['username']
 def signup():
     if request.method == 'POST':
         username = request.form['username']
@@ -328,4 +366,3 @@ def clear_history():
 
 if __name__ == '__main__':
     app.run(debug=True)
-

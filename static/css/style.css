@@ -5,7 +5,7 @@
   --accent-color: #ff6b6b;
   --text-color: #333333;
   --text-light: #777777;
-  --bg-color: #ffffff;
+  --bg-color: #f5f5f7;
   --card-bg: #f9f9f9;
   --border-color: #e0e0e0;
   --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -23,6 +23,8 @@ body {
   color: var(--text-color);
   background-color: var(--bg-color);
   line-height: 1.6;
+  height: 100vh;
+  overflow: hidden;
 }
 
 a {
@@ -210,16 +212,18 @@ footer {
 .dashboard-container {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 30px;
+  padding: 12px 30px;
   background-color: var(--primary-color);
   color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .nav-brand {
@@ -244,29 +248,22 @@ footer {
 
 .main-content {
   flex: 1;
-  padding: 30px;
-  max-width: 1000px;
-  margin: 0 auto;
-  width: 100%;
-}
-
-.welcome-message {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-.welcome-message h1 {
-  color: var(--primary-color);
-  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  overflow: hidden;
 }
 
 /* Chat */
 .chat-container {
-  background-color: var(--card-bg);
+  background-color: white;
   border-radius: 20px;
   overflow: hidden;
   box-shadow: var(--shadow);
-  height: 70vh;
+  height: calc(100vh - 80px);
+  width: 100%;
+  max-width: 1000px;
   display: flex;
   flex-direction: column;
 }
@@ -304,30 +301,34 @@ footer {
   border-bottom-right-radius: 5px;
 }
 
+/* Chat input container */
 .chat-input-container {
   padding: 15px;
   background-color: white;
   border-top: 1px solid var(--border-color);
   display: flex;
+  flex-direction: column;
   gap: 10px;
 }
 
-.search-container {
-  position: relative;
-  flex: 1;
+.input-row {
+  display: flex;
+  gap: 10px;
 }
 
 .chat-input {
-  width: 100%;
-  padding: 12px 15px;
-  border: 1px solid var(--border-color);
+  flex: 1;
+  padding: 12px 20px;
+  border: 2px solid var(--border-color);
   border-radius: 30px;
   font-size: 1rem;
   transition: var(--transition);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .chat-input:focus {
   border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(106, 61, 232, 0.2);
   outline: none;
 }
 
@@ -335,53 +336,101 @@ footer {
   padding: 12px 25px;
 }
 
-/* Suggestions Dropdown */
-.suggestions-dropdown {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: var(--shadow);
-  max-height: 200px;
-  overflow-y: auto;
-  z-index: 10;
-  display: none;
+/* Suggestions Panel */
+.suggestions-panel {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.suggestions-list {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 800px;
 }
 
 .suggestion-item {
-  padding: 10px 15px;
+  background-color: white;
+  border: 1px solid var(--primary-color);
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 14px;
   cursor: pointer;
   transition: var(--transition);
+  color: var(--primary-color);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .suggestion-item:hover {
-  background-color: var(--secondary-color);
+  background-color: var(--primary-color);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.suggestion-item:active {
+  transform: translateY(0);
+}
+
+/* Add these styles to fix the history page scrolling */
+
 /* History Page */
+.history-page {
+  display: block;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.history-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
 .history-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  position: sticky;
+  top: 0;
+  background-color: var(--bg-color);
+  padding: 10px 0;
+  z-index: 10;
 }
 
 .history-container {
-  background-color: var(--card-bg);
+  background-color: white;
   border-radius: 20px;
   padding: 20px;
   box-shadow: var(--shadow);
+  max-height: calc(100vh - 180px);
+  overflow-y: auto;
 }
 
 .history-item {
   padding: 15px;
   border-bottom: 1px solid var(--border-color);
+  background-color: var(--card-bg);
+  margin-bottom: 10px;
+  border-radius: 10px;
 }
 
 .history-item:last-child {
-  border-bottom: none;
+  margin-bottom: 0;
 }
 
 .history-query {
@@ -394,8 +443,12 @@ footer {
   color: var(--primary-color);
 }
 
+.history-response {
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
 .history-timestamp {
-  margin-top: 10px;
   font-size: 0.8rem;
   color: var(--text-light);
   text-align: right;
@@ -411,6 +464,19 @@ footer {
   color: var(--text-light);
 }
 
+/* Responsive adjustments for history page */
+@media (max-width: 768px) {
+  .history-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .history-container {
+    max-height: calc(100vh - 220px);
+  }
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .hero {
@@ -424,6 +490,12 @@ footer {
   .navbar {
     flex-direction: column;
     gap: 10px;
+    padding: 10px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 20px;
   }
 
   .features {
@@ -433,6 +505,16 @@ footer {
   .history-header {
     flex-direction: column;
     gap: 15px;
+  }
+
+  .suggestions-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .suggestion-item {
+    width: 100%;
+    text-align: center;
   }
 }
 

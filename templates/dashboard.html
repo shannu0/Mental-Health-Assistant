@@ -33,11 +33,17 @@
                 </div>
                 
                 <div class="chat-input-container">
-                    <div class="search-container">
-                        <input type="text" id="queryInput" class="chat-input" placeholder="Type your question here...">
-                        <div id="suggestions" class="suggestions-dropdown"></div>
+                    <!-- Suggestions panel above the input -->
+                    <div class="suggestions-panel" id="suggestionsPanel">
+                        <div class="suggestions-list" id="suggestionsList">
+                            <!-- Suggestions will be populated here -->
+                        </div>
                     </div>
-                    <button id="sendBtn" class="btn primary send-btn">Send</button>
+                    
+                    <div class="input-row">
+                        <input type="text" id="queryInput" class="chat-input" placeholder="Type your question here..." autocomplete="off">
+                        <button id="sendBtn" class="btn primary send-btn">Send</button>
+                    </div>
                 </div>
             </div>
         </div>

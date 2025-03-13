@@ -17,35 +17,37 @@
             </div>
         </nav>
         
-        <div class="main-content">
-            <div class="history-header">
-                <h1>Your Search History</h1>
-                {% if search_history %}
-                <form action="{{ url_for('clear_history') }}" method="post">
-                    <button type="submit" class="btn secondary">Clear History</button>
-                </form>
-                {% endif %}
-            </div>
-            
-            <div class="history-container">
-                {% if search_history %}
-                    {% for item in search_history|reverse %}
-                        <div class="history-item">
-                            <div class="history-query">
-                                <span class="query-label">Query:</span> {{ item.query }}
+        <div class="main-content history-page">
+            <div class="history-wrapper">
+                <div class="history-header">
+                    <h1>Your Search History</h1>
+                    {% if search_history %}
+                    <form action="{{ url_for('clear_history') }}" method="post">
+                        <button type="submit" class="btn secondary">Clear History</button>
+                    </form>
+                    {% endif %}
+                </div>
+                
+                <div class="history-container">
+                    {% if search_history %}
+                        {% for item in search_history|reverse %}
+                            <div class="history-item">
+                                <div class="history-query">
+                                    <span class="query-label">Query:</span> {{ item.query }}
+                                </div>
+                                <div class="history-response">
+                                    <span class="response-label">Response:</span> {{ item.response }}
+                                </div>
+                                <div class="history-timestamp">{{ item.timestamp }}</div>
                             </div>
-                            <div class="history-response">
-                                <span class="response-label">Response:</span> {{ item.response }}
-                            </div>
-                            <div class="history-timestamp">{{ item.timestamp }}</div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="no-history">
+                            <p>You haven't made any searches yet.</p>
+                            <a href="{{ url_for('dashboard') }}" class="btn primary">Start Chatting</a>
                         </div>
-                    {% endfor %}
-                {% else %}
-                    <div class="no-history">
-                        <p>You haven't made any searches yet.</p>
-                        <a href="{{ url_for('dashboard') }}" class="btn primary">Start Chatting</a>
-                    </div>
-                {% endif %}
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>
